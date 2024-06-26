@@ -8,20 +8,20 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static('public'))
 
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Musculoca1', // Replace with your MySQL root password
-  database: 'fullstack_app',
-})
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'Musculoca1', // Replace with your MySQL root password
+//   database: 'fullstack_app',
+// })
 
-db.connect((err) => {
-  if (err) {
-    console.error('error connecting to db:', err)
-  } else {
-    console.log('connected to db')
-  }
-})
+// db.connect((err) => {
+//   if (err) {
+//     console.error('error connecting to db:', err)
+//   } else {
+//     console.log('connected to db')
+//   }
+// })
 
 // CRUD operations for Users
 
