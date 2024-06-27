@@ -121,8 +121,8 @@
       </div>
     </div>
 
-    <script>
-      import config from './config.js';
+  <script type="module">
+      import config from '../config.js';
 
       function showSection(section) {
         document
@@ -135,31 +135,31 @@
        *
        */
       function createUser() {
-      const name = document.getElementById('userName').value;
-      const email = document.getElementById('userEmail').value;
-      const age = document.getElementById('userAge').value;
+        const name = document.getElementById('userName').value;
+        const email = document.getElementById('userEmail').value;
+        const age = document.getElementById('userAge').value;
 
-      fetch(`${config.apiUrl}/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, age }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            return response.text().then(text => { throw new Error(text) });
-          }
-          return response.json();
+        fetch(`${config.apiUrl}/users`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, age }),
         })
-        .then((data) => {
-          console.log('Success:', data);
-          alert('User created successfully');
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          alert('Error creating user');
-        });
+          .then((response) => {
+            if (!response.ok) {
+              return response.text().then(text => { throw new Error(text) });
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log('Success:', data);
+            alert('User created successfully');
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            alert('Error creating user');
+          });
     }
 
       function getUsers() {
@@ -261,7 +261,7 @@
           })
       }
 
-      // Hardcoded categories
+      // Catetorias
       const categories = [
         { id: 1, name: 'Technology' },
         { id: 2, name: 'Health' },
@@ -270,6 +270,12 @@
       ]
 
       console.log('Categories:', categories)
+
+
+      window.createUser = createUser;
+      window.getUsers = getUsers;
+      // window.deleteUser = ;
+      // window.updateUser = ;
     </script>
   </body>
 </html>
