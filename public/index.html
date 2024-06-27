@@ -122,20 +122,24 @@
     </div>
 
     <script>
+      import config from './config.js';
+
       function showSection(section) {
         document
           .querySelectorAll('.section')
           .forEach((sec) => sec.classList.add('hidden'))
         document.getElementById(section).classList.remove('hidden')
       }
-
-      // User CRUD operations
+      /* 
+       * USERS
+       *
+       */
       function createUser() {
       const name = document.getElementById('userName').value;
       const email = document.getElementById('userEmail').value;
       const age = document.getElementById('userAge').value;
 
-      fetch('http://localhost:5000/api/users', {
+      fetch(`${config.apiUrl}/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -159,7 +163,7 @@
     }
 
       function getUsers() {
-        fetch('http://localhost:5000/users')
+        fetch(`${config.apiUrl}/users`)
           .then((response) => response.json())
           .then((data) => {
             console.log('Users:', data)

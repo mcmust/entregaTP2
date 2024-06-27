@@ -10,7 +10,6 @@ const db = require('./db');
  */
  
 router.post('/users', (req, res) => {
-console.log('entro el post en users')
   const { name, email, age } = req.body
   const sql = 'INSERT INTO users (name, email, age) VALUES (?, ?, ?)'
   db.query(sql, [name, email, age], (err, result) => {
