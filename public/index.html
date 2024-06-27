@@ -79,9 +79,25 @@
           <label for="userAge">Age</label>
           <input type="number" id="userAge" placeholder="Enter age" />
         </div>
-        <button onclick="createUser()">Create User</button>
+        <button onclick="event.preventDefault(); createUser();">Create User</button>
+        
+        <h1>Get Users</h1>
         <button onclick="getUsers()">Get Users</button>
-        <div id="userResult"></div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Age</th>
+            </tr>
+          </thead>
+          <tbody id="userResult">
+            <!-- User rows will be added here dynamically -->
+          </tbody>
+        </table>
+
       </div>
       <div id="post" class="section hidden">
         <h2>Posts</h2>
@@ -155,6 +171,7 @@
           .then((data) => {
             console.log('Success:', data);
             alert('User created successfully');
+            getUsers();
           })
           .catch((error) => {
             console.error('Error:', error);
@@ -167,11 +184,7 @@
           .then((response) => response.json())
           .then((data) => {
             console.log('Users:', data)
-            document.getElementById('userResult').innerHTML = JSON.stringify(
-              data,
-              null,
-              2
-            )
+            displayUsersAsTable(data);
           })
           .catch((error) => {
             console.error('Error:', error)
@@ -269,13 +282,36 @@
         { id: 4, name: 'Education' },
       ]
 
-      console.log('Categories:', categories)
+      // console.log('Categories:', categories)
+
+    function displayUsersAsTable(users) {
+      const userResult = document.getElementById('userResult');
+      userResult.innerHTML = ''; // Clear previous results
+
+      if (users.length === 0) {
+        userResult.innerHTML = '<tr><td colspan="4">No users found.</td></tr>';
+        return;
+      }
+
+      users.forEach(user => {
+        const row = `<tr>
+                      <td>${user.id}</td>
+                      <td>${user.name}</td>
+                      <td>${user.email}</td>
+                      <td>${user.age}</td>
+                    </tr>`;
+        userResult.innerHTML += row;
+      });
+    }
+
 
 
       window.createUser = createUser;
       window.getUsers = getUsers;
       // window.deleteUser = ;
       // window.updateUser = ;
+      window.showSection = showSection;
+
     </script>
   </body>
 </html>
