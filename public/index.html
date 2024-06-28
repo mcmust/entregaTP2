@@ -118,23 +118,37 @@
     </div>
 
     <div id="postSection" class="section hidden">
-      <h2>Posts</h2>
-      <div class="form-group">
-        <label for="postUserId">User ID</label>
-        <input type="number" id="postUserId" placeholder="Enter user ID" />
-      </div>
-      <div class="form-group">
-        <label for="postTitle">Title</label>
-        <input type="text" id="postTitle" placeholder="Enter title" />
-      </div>
-      <div class="form-group">
-        <label for="postContent">Content</label>
-        <input type="text" id="postContent" placeholder="Enter content" />
-      </div>
-      <button onclick="createPost()">Create Post</button>
-      <button onclick="getPosts()">Get Posts</button>
-      <div id="postResult"></div>
+    <h2>Posts</h2>
+    <div class="form-group">
+      <label for="postUserId">User ID</label>
+      <input type="number" id="postUserId" placeholder="Enter user ID" />
     </div>
+    <div class="form-group">
+      <label for="postTitle">Title</label>
+      <input type="text" id="postTitle" placeholder="Enter title" />
+    </div>
+    <div class="form-group">
+      <label for="postContent">Content</label>
+      <input type="text" id="postContent" placeholder="Enter content" />
+    </div>
+    <button onclick="createPost()">Create Post</button>
+    <button onclick="getPosts()">Get Posts</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User ID</th>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="postResult">
+      </tbody>
+    </table>
+  </div>
+
 
     <div id="commentSection" class="section hidden">
       <h2>Comments</h2>
