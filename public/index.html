@@ -59,11 +59,12 @@
   </head>
   <body>
     <div class="container">
-      <h1>CRUD Operations</h1>
+    <h1>Management Sections</h1>
       <nav>
-        <a href="#" onclick="showSection('user')">Users</a>
-        <a href="#" onclick="showSection('post')">Posts</a>
-        <a href="#" onclick="showSection('comment')">Comments</a>
+        <button onclick="showSection('userSection')">Users</button>
+        <button onclick="showSection('postSection')">Posts</button>
+        <button onclick="showSection('commentSection')">Comments</button>
+        <button onclick="showSection('categorySection')">Categories</button>
       </nav>
       <div id="user" class="section">
         <h2>Users</h2>
@@ -137,6 +138,29 @@
         <button onclick="getComments()">Get Comments</button>
         <div id="commentResult"></div>
       </div>
+       <section id="categorySection" class="hidden">
+       <h1>Create Category</h1>
+        <form onsubmit="event.preventDefault(); createCategory();">
+          <input type="text" id="categoryName" placeholder="Category Name" required />
+          <button type="submit">Create Category</button>
+        </form>
+
+      <h1>Get Categories</h1>
+      <button onclick="getCategories()">Get Categories</button>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="categoryResult">
+          <!-- Category rows will be added here dynamically -->
+        </tbody>
+      </table>
+      </section>
+
     </div>
 
   <script type="module">
