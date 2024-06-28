@@ -148,37 +148,37 @@
       </div>
 
       <div id="commentSection" class="section hidden">
-        <h2>Comments</h2>
-        <div class="form-group">
-          <label for="commentPostId">Post ID</label>
-          <input type="number" id="commentPostId" placeholder="Enter post ID" />
-        </div>
-        <div class="form-group">
-          <label for="commentUserId">User ID</label>
-          <input type="number" id="commentUserId" placeholder="Enter user ID" />
-        </div>
-        <div class="form-group">
-          <label for="commentContent">Content</label>
-          <input type="text" id="commentContent" placeholder="Enter content" />
-        </div>
-        <button onclick="createComment()">Create Comment</button>
-        <button onclick="getComments()">Get Comments</button>
-
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Post ID</th>
-              <th>User ID</th>
-              <th>Content</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="commentResult">
-          </tbody>
-        </table>
+      <h2>Comments</h2>
+      <div class="form-group">
+        <label for="commentPostId">Post ID</label>
+        <input type="number" id="commentPostId" placeholder="Enter post ID" />
       </div>
+      <div class="form-group">
+        <label for="commentUserId">User ID</label>
+        <input type="number" id="commentUserId" placeholder="Enter user ID" />
+      </div>
+      <div class="form-group">
+        <label for="commentContent">Content</label>
+        <input type="text" id="commentContent" placeholder="Enter content" />
+      </div>
+      <button onclick="createComment()">Create Comment</button>
+      <button onclick="getComments()">Get Comments</button>
 
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Post ID</th>
+            <th>User ID</th>
+            <th>Content</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="commentResult">
+          <!-- Comment rows will be added here dynamically -->
+        </tbody>
+      </table>
+    </div>
 
     <div id="categorySection" class="section hidden">
       <h2>Create Category</h2>
@@ -395,87 +395,87 @@
       *
       */
 
-        function createComment() {
-          const post_id = document.getElementById('commentPostId').value;
-          const user_id = document.getElementById('commentUserId').value;
-          const content = document.getElementById('commentContent').value;
+      function createComment() {
+        const post_id = document.getElementById('commentPostId').value;
+        const user_id = document.getElementById('commentUserId').value;
+        const content = document.getElementById('commentContent').value;
 
-          fetch(`${config.apiUrl}/comments`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ post_id, user_id, content }),
+        fetch(`${config.apiUrl}/comments`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ post_id, user_id, content }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              return response.text().then(text => { throw new Error(text) });
+            }
+            return response.json();
           })
-            .then((response) => {
-              if (!response.ok) {
-                return response.text().then(text => { throw new Error(text) });
-              }
-              return response.json();
-            })
-            .then((data) => {
-              console.log('Success:', data);
-              alert('Comment created successfully');
-              getComments(); // Refresh the comment list
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-              alert('Error creating comment');
-            });
-        }
-
-        function getComments() {
-          fetch(`${config.apiUrl}/comments`)
-            .then((response) => response.json())
-            .then((data) => {
-              console.log('Comments:', data);
-              displayCommentsAsTable(data);
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-              alert('Error fetching comments');
-            });
-        }
-
-        function displayCommentsAsTable(comments) {
-          const commentResult = document.getElementById('commentResult');
-          commentResult.innerHTML = ''; // Clear previous results
-
-          if (comments.length === 0) {
-            commentResult.innerHTML = '<tr><td colspan="5">No comments found.</td></tr>';
-            return;
-          }
-
-          comments.forEach(comment => {
-            const row = document.createElement('tr');
-            
-            row.innerHTML = `
-              <td>${comment.id}</td>
-              <td>${comment.post_id}</td>
-              <td>${comment.user_id}</td>
-              <td>${comment.content}</td>
-              <td><button onclick="deleteComment(${comment.id})">Delete</button></td>
-            `;
-            commentResult.appendChild(row);
+          .then((data) => {
+            console.log('Success:', data);
+            alert('Comment created successfully');
+            getComments(); // Refresh the comment list
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            alert('Error creating comment');
           });
+      }
+
+      function getComments() {
+        fetch(`${config.apiUrl}/comments`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Comments:', data);
+            displayCommentsAsTable(data);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            alert('Error fetching comments');
+          });
+      }
+
+      function displayCommentsAsTable(comments) {
+        const commentResult = document.getElementById('commentResult');
+        commentResult.innerHTML = ''; // Clear previous results
+
+        if (comments.length === 0) {
+          commentResult.innerHTML = '<tr><td colspan="5">No comments found.</td></tr>';
+          return;
         }
 
-        function deleteComment(commentId) {
-          fetch(`${config.apiUrl}/comments/${commentId}`, {
-            method: 'DELETE',
+        comments.forEach(comment => {
+          const row = document.createElement('tr');
+          
+          row.innerHTML = `
+            <td>${comment.id}</td>
+            <td>${comment.post_id}</td>
+            <td>${comment.user_id}</td>
+            <td>${comment.content}</td>
+            <td><button onclick="deleteComment(${comment.id})">Delete</button></td>
+          `;
+          commentResult.appendChild(row);
+        });
+      }
+
+      function deleteComment(commentId) {
+        fetch(`${config.apiUrl}/comments/${commentId}`, {
+          method: 'DELETE',
+        })
+          .then((response) => {
+            if (!response.ok) {
+              return response.text().then(text => { throw new Error(text) });
+            }
+            alert('Comment deleted successfully');
+            getComments(); // Refresh the comment list
           })
-            .then((response) => {
-              if (!response.ok) {
-                return response.text().then(text => { throw new Error(text) });
-              }
-              alert('Comment deleted successfully');
-              getComments(); // Refresh the comment list
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-              alert('Error deleting comment');
-            });
-        }
+          .catch((error) => {
+            console.error('Error:', error);
+            alert('Error deleting comment');
+          });
+      }
 
 
      /* 
@@ -578,9 +578,10 @@
       window.createPost = createPost
       window.deletePost =deletePost
 
-      window.getComments = getComments
-      window.createComment = createComment
-      window.deleteComment = deleteComment
+      window.createComment = createComment;
+      window.getComments = getComments;
+      window.deleteComment = deleteComment;
+      window.displayCommentsAsTable = displayCommentsAsTable;
 
       window.getCategories= getCategories
       window.deleteCategory = deleteCategory
