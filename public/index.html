@@ -81,7 +81,7 @@
       <button onclick="showSection('commentSection')">Comments</button>
       <button onclick="showSection('categorySection')">Categories</button>
     </nav>
-
+        <!-- seccion de usuarios -->
       <div id="userSection" class="section">
         <h2>Users</h2>
         <div class="form-group">
@@ -115,6 +115,7 @@
         </table>
       </div>
 
+      <!-- seccion de posts -->
       <div id="postSection" class="section hidden">
         <h2>Posts</h2>
         <div class="form-group">
@@ -147,6 +148,7 @@
         </table>
       </div>
 
+      <!-- seccion de comentarios -->
       <div id="commentSection" class="section hidden">
       <h2>Comments</h2>
       <div class="form-group">
@@ -178,32 +180,33 @@
           <!-- Comment rows will be added here dynamically -->
         </tbody>
       </table>
-    </div>
+      </div>
 
-    <div id="categorySection" class="section hidden">
-      <h2>Create Category</h2>
-      <form onsubmit="event.preventDefault(); createCategory();">
-        <div class="form-group">
-          <input type="text" id="categoryName" placeholder="Category Name" required />
-          <button type="submit">Create Category</button>
-        </div>
-      </form>
+      <!-- seccion de categorias -->
+      <div id="categorySection" class="section hidden">
+        <h2>Create Category</h2>
+        <form onsubmit="event.preventDefault(); createCategory();">
+          <div class="form-group">
+            <input type="text" id="categoryName" placeholder="Category Name" required />
+            <button type="submit">Create Category</button>
+          </div>
+        </form>
 
-      <h2>Get Categories</h2>
-      <button onclick="getCategories()">Get Categories</button>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="categoryResult">
-          <!-- Category rows will be added here dynamically -->
-        </tbody>
-      </table>
-    </div>
+        <h2>Get Categories</h2>
+        <button onclick="getCategories()">Get Categories</button>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="categoryResult">
+            <!-- Category rows will be added here dynamically -->
+          </tbody>
+        </table>
+      </div>
   </div>
 
   <script type="module">
@@ -569,14 +572,17 @@
         });
     }
 
+      window.showSection = showSection;
 
       window.createUser = createUser;
       window.getUsers = getUsers;
       window.deleteUser = deleteUser;
+      window.displayUsersAsTable=displayUsersAsTable
       
       window.getPosts = getPosts
       window.createPost = createPost
       window.deletePost =deletePost
+      window.displayPostsAsTable=displayPostsAsTable
 
       window.createComment = createComment;
       window.getComments = getComments;
@@ -586,12 +592,7 @@
       window.getCategories= getCategories
       window.deleteCategory = deleteCategory
       window.createCategory= createCategory
-
-      window.displayUsersAsTable=displayUsersAsTable
-      window.displayPostsAsTable=displayPostsAsTable
       window.displayCategoriesAsTable=displayCategoriesAsTable
-
-      window.showSection = showSection;
 
     </script>
   </body>
