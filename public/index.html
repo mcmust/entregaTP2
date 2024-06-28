@@ -325,6 +325,85 @@
         { id: 4, name: 'Education' },
       ]
 
+  function createCategory() {
+      const name = document.getElementById('categoryName').value;
+
+      fetch(`${config.apiUrl}/categories`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            return response.text().then(text => { throw new Error(text) });
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Success:', data);
+          alert('Category created successfully');
+          getCategories(); // Refresh the category list
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('Error creating category');
+        });
+    }
+
+    function getCategories() {
+      fetch(`${config.apiUrl}/categories`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Categories:', data);
+          displayCategoriesAsTable(data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('Error fetching categories');
+        });
+    }
+
+    function displayCategoriesAsTable(categories) {
+      const categoryResult = document.getElementById('categoryResult');
+      categoryResult.innerHTML = ''; // Clear previous results
+
+      if (categories.length === 0) {
+        categoryResult.innerHTML = '<tr><td colspan="3">No categories found.</td></tr>';
+        return;
+      }
+
+      categories.forEach(category => {
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+          <td>${category.id}</td>
+          <td>${category.name}</td>
+          <td><button onclick="deleteCategory(${category.id})">Delete</button></td>
+        `;
+        categoryResult.appendChild(row);
+      });
+    }
+
+    function deleteCategory(categoryId) {
+      fetch(`${config.apiUrl}/categories/${categoryId}`, {
+        method: 'DELETE',
+      })
+        .then((response) => {
+          if (!response.ok) {
+            return response.text().then(text => { throw new Error(text) });
+          }
+          alert('Category deleted successfully');
+          getCategories(); // Refresh the category list
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('Error deleting category');
+        });
+    }
+
+
       // console.log('Categories:', categories)
 
      function displayUsersAsTable(users) {

@@ -162,6 +162,40 @@ router.delete('/comments/:id', (req, res) => {
  *
  */
 
+ // CATEGORIES
+router.post('/categories', (req, res) => {
+  const { name } = req.body;
+  const sql = 'INSERT INTO categories (name) VALUES (?)';
+  db.query(sql, [name], (err, result) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.status(201).send(result);
+  });
+});
+
+router.get('/categories', (req, res) => {
+  const sql = 'SELECT * FROM categories';
+  db.query(sql, (err, results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.status(200).send(results);
+  });
+});
+
+router.delete('/categories/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = 'DELETE FROM categories WHERE id = ?';
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.status(200).send(result);
+  });
+});
+
+
 
 router.post('/populateCategories', (req, res) => {
   const categories = [
