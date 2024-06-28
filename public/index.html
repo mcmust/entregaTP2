@@ -235,7 +235,12 @@
         });
     }
 
-      // Post CRUD operations
+      /* 
+       * POST
+       *
+       *
+       */
+
       function createPost() {
         const user_id = document.getElementById('postUserId').value
         const title = document.getElementById('postTitle').value
@@ -275,6 +280,24 @@
             alert('Error fetching posts')
           })
       }
+
+    function deletePost(postId) {
+      fetch(`${config.apiUrl}/posts/${postId}`, {
+        method: 'DELETE',
+      })
+        .then((response) => {
+          if (!response.ok) {
+            return response.text().then(text => { throw new Error(text) });
+          }
+          alert('Post deleted successfully');
+          getPosts();
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('Error deleting post');
+        });
+    }
+
 
       // Comment CRUD operations
       function createComment() {
@@ -434,7 +457,19 @@
       window.createUser = createUser;
       window.getUsers = getUsers;
       window.deleteUser = deleteUser;
-      // window.updateUser = ;
+      
+      window.getCategories= getCategories
+      window.deleteCategory = deleteCategory
+      window.createCategory=createCategory
+
+      window.getPosts= getPosts
+      window.createPost = createPost
+      window.deletePost =deletePost
+
+
+      window.displayUsersAsTable=displayUsersAsTable
+      window.displayCategoriesAsTable=displayCategoriesAsTable
+
       window.showSection = showSection;
 
     </script>
