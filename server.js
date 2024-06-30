@@ -13,10 +13,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json())
 app.use(cors())
 
-// Use the routes from routes.js
 app.use('/api', routes);
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Something went wrong:', err);
   res.status(500).send({ error: 'Something went wrong', details: err.message });

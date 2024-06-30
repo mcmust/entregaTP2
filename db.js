@@ -14,7 +14,7 @@ if (!match) {
 
 const [_, user, password, host, port = 3306, database] = match;
 
-// Create a MySQL connection
+// MySQL connection
 const connection = mysql.createConnection({
   host,
   user,
