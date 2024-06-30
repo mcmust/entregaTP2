@@ -110,15 +110,31 @@ router.delete('/posts/:id', (req, res) => {
  *
  */
 
+// Insert comment with validation
 router.post('/comments', (req, res) => {
   const { post_id, user_id, content } = req.body;
-  const sql = 'INSERT INTO comments (post_id, user_id, content) VALUES (?, ?, ?)';
-  db.query(sql, [post_id, user_id, content], (err, result) => {
+  
+  // Validate post_id exists
+  const validatePostSql = 'SELECT 1 FROM posts WHERE id = ?';
+  db.query(validatePostSql, [post_id], (err, results) => {
     if (err) {
-      console.error('Error inserting comment:', err);
+      console.error('Error validating post_id:', err);
       return res.status(500).send({ error: 'Database error', details: err.message, sqlMessage: err.sqlMessage });
     }
-    res.status(201).send(result);
+
+    if (results.length === 0) {
+      return res.status(400).send({ error: 'Invalid post_id', details: 'The specified post_id does not exist in the posts table.' });
+    }
+
+    // If post_id is valid, insert the comment
+    const insertCommentSql = 'INSERT INTO comments (post_id, user_id, content) VALUES (?, ?, ?)';
+    db.query(insertCommentSql, [post_id, user_id, content], (err, result) => {
+      if (err) {
+        console.error('Error inserting comment:', err);
+        return res.status(500).send({ error: 'Database error', details: err.message, sqlMessage: err.sqlMessage });
+      }
+      res.status(201).send(result);
+    });
   });
 });
 
