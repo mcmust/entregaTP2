@@ -1,7 +1,7 @@
-const mysql = require('mysql2')
+const mysql = require('mysql2');
 require('dotenv').config();
 
-const databaseUrl = process.env.JAWSDB_URL
+const databaseUrl = process.env.JAWSDB_URL;
 
 if (!databaseUrl) {
   throw new Error('JAWSDB_URL environment variable is not set');
@@ -11,7 +11,6 @@ const match = databaseUrl.match(/mysql:\/\/([^:]+):([^@]+)@([^\/:]+)(?::(\d+))?\
 if (!match) {
   throw new Error('Invalid JAWSDB_URL format');
 }
-
 
 const [_, user, password, host, port = 3306, database] = match;
 
@@ -24,7 +23,6 @@ const connection = mysql.createConnection({
   port
 });
 
-
 connection.connect((err) => {
   if (err) {
     console.error('Error connecting to the database:', err);
@@ -33,4 +31,4 @@ connection.connect((err) => {
   console.log('Connected to the database');
 });
 
-module.exports = connection
+module.exports = connection;

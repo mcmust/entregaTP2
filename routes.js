@@ -111,50 +111,55 @@ router.delete('/posts/:id', (req, res) => {
  */
 
 router.post('/comments', (req, res) => {
-  const { post_id, user_id, content } = req.body
-  const sql =
-    'INSERT INTO comments (post_id, user_id, content) VALUES (?, ?, ?)'
+  const { post_id, user_id, content } = req.body;
+  const sql = 'INSERT INTO comments (post_id, user_id, content) VALUES (?, ?, ?)';
   db.query(sql, [post_id, user_id, content], (err, result) => {
     if (err) {
-      return res.status(500).send(err)
+      console.error('Error inserting comment:', err);
+      return res.status(500).send({ error: 'Database error', details: err.message, sqlMessage: err.sqlMessage });
     }
-    res.status(201).send(result)
-  })
-})
+    res.status(201).send(result);
+  });
+});
 
+// Fetch all comments
 router.get('/comments', (req, res) => {
-  const sql = 'SELECT * FROM comments'
+  const sql = 'SELECT * FROM comments';
   db.query(sql, (err, results) => {
     if (err) {
-      return res.status(500).send(err)
+      console.error('Error fetching comments:', err);
+      return res.status(500).send({ error: 'Database error', details: err.message, sqlMessage: err.sqlMessage });
     }
-    res.status(200).send(results)
-  })
-})
+    res.status(200).send(results);
+  });
+});
 
+// Update comment
 router.put('/comments/:id', (req, res) => {
-  const { id } = req.params
-  const { post_id, user_id, content } = req.body
-  const sql =
-    'UPDATE comments SET post_id = ?, user_id = ?, content = ? WHERE id = ?'
+  const { id } = req.params;
+  const { post_id, user_id, content } = req.body;
+  const sql = 'UPDATE comments SET post_id = ?, user_id = ?, content = ? WHERE id = ?';
   db.query(sql, [post_id, user_id, content, id], (err, result) => {
     if (err) {
-      return res.status(500).send(err)
+      console.error('Error updating comment:', err);
+      return res.status(500).send({ error: 'Database error', details: err.message, sqlMessage: err.sqlMessage });
     }
-    res.status(200).send(result)
-  })
-})
+    res.status(200).send(result);
+  });
+});
 
+// Delete comment
 router.delete('/comments/:id', (req, res) => {
-  const { id } = req.params
-  const sql = 'DELETE FROM comments WHERE id = ?'
+  const { id } = req.params;
+  const sql = 'DELETE FROM comments WHERE id = ?';
   db.query(sql, [id], (err, result) => {
     if (err) {
-      return res.status(500).send(err)
+      console.error('Error deleting comment:', err);
+      return res.status(500).send({ error: 'Database error', details: err.message, sqlMessage: err.sqlMessage });
     }
-    res.status(200).send(result)
-  })
-})
+    res.status(200).send(result);
+  });
+});
 
 /* 
  * CATEGORIES
