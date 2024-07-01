@@ -67,6 +67,37 @@
       th {
         background-color: #f2f2f2;
       }
+      .modal {
+        /* display: none; */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+      }
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -94,7 +125,6 @@
         <input type="number" id="userAge" placeholder="Enter age" />
       </div>
       <button onclick="event.preventDefault(); createUser();">Create User</button>
-
       <button onclick="getUsers()">Get Users</button>
 
       <table>
@@ -111,6 +141,26 @@
           <!-- User rows will be added here dynamically -->
         </tbody>
       </table>
+      <!-- modal -->
+      <div id="updateUserModal" class="modal hidden">
+        <div class="modal-content">
+          <span class="close" onclick="closeUpdateModal()">&times;</span>
+          <h2>Update User</h2>
+          <div class="form-group">
+            <label for="updateUserName">Name</label>
+            <input type="text" id="updateUserName" placeholder="Enter name" />
+          </div>
+          <div class="form-group">
+            <label for="updateUserEmail">Email</label>
+            <input type="text" id="updateUserEmail" placeholder="Enter email" />
+          </div>
+          <div class="form-group">
+            <label for="updateUserAge">Age</label>
+            <input type="number" id="updateUserAge" placeholder="Enter age" />
+          </div>
+          <button onclick="saveUserUpdate()">Save Changes</button>
+        </div>
+      </div>
     </div>
     
     <div id="postSection" class="section hidden">
@@ -249,7 +299,6 @@
       fetch(`${config.apiUrl}/users`)
         .then((response) => response.json())
         .then((data) => {
-          console.log('Users:', data)
           displayUsersAsTable(data);
         })
         .catch((error) => {
@@ -275,7 +324,8 @@
           <td>${user.name}</td>
           <td>${user.email}</td>
           <td>${user.age}</td>
-          <td><button onclick="deleteUser(${user.id})">Delete</button></td>
+          <td><button onclick="deleteUser(${user.id})">Delete</button>
+          <button onclick="updateUser(${user.id})">Edit</button></td>
         `;
         userResult.appendChild(row);
       });
@@ -295,6 +345,63 @@
         .catch((error) => {
           console.error('Error:', error);
           alert('Error deleting user');
+        });
+    }
+
+    let currentUserId;
+
+    function updateUser(userId) {
+      currentUserId = userId;
+
+      // agarro los datos del usuario
+      const user = Array.from(document.querySelectorAll('#userResult tr'))
+      .find(row => row.querySelector('td:first-child').innerText == userId);
+      if (!user) return alert('User not found');
+
+      const userName = user.children[1].innerText;
+      const userEmail = user.children[2].innerText;
+      const userAge = user.children[3].innerText;
+
+      // completo los campos
+      document.getElementById('updateUserName').value = userName;
+      document.getElementById('updateUserEmail').value = userEmail;
+      document.getElementById('updateUserAge').value = userAge;
+      const modalElement = document.getElementById('updateUserModal')
+      // muestro el modal
+      document.getElementById('updateUserModal').classList.remove('hidden');
+    }
+
+    function closeUpdateModal() {
+      document.getElementById('updateUserModal').classList.add('hidden');
+    }
+
+    function saveUserUpdate() {
+      const name = document.getElementById('updateUserName').value;
+      const email = document.getElementById('updateUserEmail').value;
+      const age = document.getElementById('updateUserAge').value;
+
+      fetch(`${config.apiUrl}/users/${currentUserId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, age }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            return response.text().then(text => { throw new Error(text) });
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Success:', data);
+          alert('User updated successfully');
+          getUsers(); // Refresh the user list
+          closeUpdateModal();
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('Error updating user');
         });
     }
 
@@ -337,7 +444,7 @@
       fetch(`${config.apiUrl}/posts`)
         .then((response) => response.json())
         .then((data) => {
-          console.log('Posts:', data);
+          // console.log('Posts:', data);
           displayPostsAsTable(data);
         })
         .catch((error) => {
@@ -427,7 +534,7 @@
       fetch(`${config.apiUrl}/comments`)
         .then((response) => response.json())
         .then((data) => {
-          console.log('Comments:', data);
+          // console.log('Comments:', data);
           displayCommentsAsTable(data);
         })
         .catch((error) => {
@@ -513,7 +620,6 @@
     fetch(`${config.apiUrl}/categories`)
       .then((response) => response.json())
       .then((data) => {
-        console.log('Categories:', data);
         displayCategoriesAsTable(data);
       })
       .catch((error) => {
@@ -544,20 +650,20 @@
     }
 
     function deleteCategory(categoryId) {
-    fetch(`${config.apiUrl}/categories/${categoryId}`, {
-      method: 'DELETE',
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.text().then(text => { throw new Error(text) });
-        }
-        alert('Category deleted successfully');
-        getCategories(); // Refresh the category list
+      fetch(`${config.apiUrl}/categories/${categoryId}`, {
+        method: 'DELETE',
       })
-      .catch((error) => {
-        console.error('Error:', error);
-        alert('Error deleting category');
-      });
+        .then((response) => {
+          if (!response.ok) {
+            return response.text().then(text => { throw new Error(text) });
+          }
+          alert('Category deleted successfully');
+          getCategories(); // Refresh the category list
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('Error deleting category');
+        });
     }
 
     window.showSection = showSection;
@@ -566,6 +672,9 @@
     window.getUsers = getUsers;
     window.displayUsersAsTable=displayUsersAsTable
     window.deleteUser = deleteUser;
+    window.updateUser = updateUser;
+    window.saveUserUpdate = saveUserUpdate;
+    window.closeUpdateModal = closeUpdateModal;
 
     window.createPost = createPost
     window.getPosts = getPosts
