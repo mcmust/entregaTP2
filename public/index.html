@@ -131,14 +131,13 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Nombre</th>
             <th>Email</th>
-            <th>Age</th>
-            <th>Actions</th>
+            <th>Edad</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody id="userResult">
-          <!-- User rows will be added here dynamically -->
         </tbody>
       </table>
       <!-- modal -->
@@ -209,7 +208,7 @@
         <label for="commentContent">Contenido</label>
         <input type="text" id="commentContent" placeholder="Ingresar el contenido" />
       </div>
-      <button onclick="createComment()">Crear comentario</button>
+      <button onclick="window.createComment()">Crear comentario</button>
       <button onclick="getComments()">Listar comentarios</button>
       <table>
         <thead>
@@ -497,6 +496,7 @@
     */
 
     function createComment() {
+      console.log('entro el createcomment')
       const post_id = document.getElementById('commentPostId').value;
       const user_id = document.getElementById('commentUserId').value;
       const content = document.getElementById('commentContent').value;
