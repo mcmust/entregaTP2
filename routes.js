@@ -4,7 +4,7 @@ const db = require('./db');
 
 
 /* 
- * USERS
+ * USUARIOS
  * 
  *
  */
@@ -105,16 +105,14 @@ router.delete('/posts/:id', (req, res) => {
 })
 
 /* 
- * COMMENTS
+ * COMENTARIOS
  * 
  *
  */
 
-// Insert comment with validation
 router.post('/comments', (req, res) => {
   const { post_id, user_id, content } = req.body;
   
-  // Validate post_id exists
   const validatePostSql = 'SELECT 1 FROM posts WHERE id = ?';
   db.query(validatePostSql, [post_id], (err, results) => {
     if (err) {
@@ -126,7 +124,6 @@ router.post('/comments', (req, res) => {
       return res.status(400).send({ error: 'Invalid post_id', details: 'The specified post_id does not exist in the posts table.' });
     }
 
-    // If post_id is valid, insert the comment
     const insertCommentSql = 'INSERT INTO comments (post_id, user_id, content) VALUES (?, ?, ?)';
     db.query(insertCommentSql, [post_id, user_id, content], (err, result) => {
       if (err) {
@@ -138,7 +135,6 @@ router.post('/comments', (req, res) => {
   });
 });
 
-// Fetch all comments
 router.get('/comments', (req, res) => {
   const sql = 'SELECT * FROM comments';
   db.query(sql, (err, results) => {
@@ -150,7 +146,6 @@ router.get('/comments', (req, res) => {
   });
 });
 
-// Update comment
 router.put('/comments/:id', (req, res) => {
   const { id } = req.params;
   const { post_id, user_id, content } = req.body;
@@ -164,7 +159,6 @@ router.put('/comments/:id', (req, res) => {
   });
 });
 
-// Delete comment
 router.delete('/comments/:id', (req, res) => {
   const { id } = req.params;
   const sql = 'DELETE FROM comments WHERE id = ?';
@@ -178,12 +172,11 @@ router.delete('/comments/:id', (req, res) => {
 });
 
 /* 
- * CATEGORIES
+ * CATEGORIAS
  * 
  *
  */
 
- // CATEGORIES
 router.post('/categories', (req, res) => {
   const { name } = req.body;
   const sql = 'INSERT INTO categories (name) VALUES (?)';
@@ -215,27 +208,5 @@ router.delete('/categories/:id', (req, res) => {
     res.status(200).send(result);
   });
 });
-
-
-
-router.post('/populateCategories', (req, res) => {
-  const categories = [
-    { id: 1, name: 'Technology' },
-    { id: 2, name: 'Health' },
-    { id: 3, name: 'Lifestyle' },
-    { id: 4, name: 'Education' },
-  ]
-
-  categories.forEach((category) => {
-    const sql = 'INSERT IGNORE INTO categories (id, name) VALUES (?, ?)'
-    db.query(sql, [category.id, category.name], (err, result) => {
-      if (err) {
-        return res.status(500).send(err)
-      }
-    })
-  })
-
-  res.send('Categories populated successfully')
-})
 
 module.exports = router; 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Frontend</title>
+    <title>Frontend ABM de usuarios, posts, comentarios y Categorias</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -102,30 +102,30 @@
   </head>
   <body>
    <div class="container">
-    <h1>Management Sections</h1>
+    <h2>ABM de usuarios, posts, comentarios y categorias</h2>
     <nav>
-      <button onclick="showSection('userSection')">Users</button>
+      <button onclick="showSection('userSection')">Usuarios</button>
       <button onclick="showSection('postSection')">Posts</button>
-      <button onclick="showSection('commentSection')">Comments</button>
-      <button onclick="showSection('categorySection')">Categories</button>
+      <button onclick="showSection('commentSection')">Comentarios</button>
+      <button onclick="showSection('categorySection')">Categorias</button>
     </nav>
 
     <div id="userSection" class="section">
-      <h2>Users</h2>
+      <h2>Usuarios</h2>
       <div class="form-group">
-        <label for="userName">Name</label>
-        <input type="text" id="userName" placeholder="Enter name" />
+        <label for="userName">Nombre</label>
+        <input type="text" id="userName" placeholder="Ingresar nombre" />
       </div>
       <div class="form-group">
         <label for="userEmail">Email</label>
-        <input type="text" id="userEmail" placeholder="Enter email" />
+        <input type="text" id="userEmail" placeholder="Ingresar email" />
       </div>
       <div class="form-group">
-        <label for="userAge">Age</label>
-        <input type="number" id="userAge" placeholder="Enter age" />
+        <label for="userAge">Edad</label>
+        <input type="number" id="userAge" placeholder="Ingresar edad" />
       </div>
-      <button onclick="event.preventDefault(); createUser();">Create User</button>
-      <button onclick="getUsers()">Get Users</button>
+      <button onclick="event.preventDefault(); createUser();">Crear usuario</button>
+      <button onclick="getUsers()">Listar usuarios</button>
 
       <table>
         <thead>
@@ -145,20 +145,20 @@
       <div id="updateUserModal" class="modal hidden">
         <div class="modal-content">
           <span class="close" onclick="closeUpdateModal()">&times;</span>
-          <h2>Update User</h2>
+          <h2>Actualizar usuario</h2>
           <div class="form-group">
-            <label for="updateUserName">Name</label>
-            <input type="text" id="updateUserName" placeholder="Enter name" />
+            <label for="updateUserName">Nombre</label>
+            <input type="text" id="updateUserName" placeholder="Ingresar nombre" />
           </div>
           <div class="form-group">
             <label for="updateUserEmail">Email</label>
-            <input type="text" id="updateUserEmail" placeholder="Enter email" />
+            <input type="text" id="updateUserEmail" placeholder="Ingresar email" />
           </div>
           <div class="form-group">
-            <label for="updateUserAge">Age</label>
-            <input type="number" id="updateUserAge" placeholder="Enter age" />
+            <label for="updateUserAge">Edad</label>
+            <input type="number" id="updateUserAge" placeholder="Ingresar edad" />
           </div>
-          <button onclick="saveUserUpdate()">Save Changes</button>
+          <button onclick="saveUserUpdate()">Guardar cambios</button>
         </div>
       </div>
     </div>
@@ -166,64 +166,62 @@
     <div id="postSection" class="section hidden">
         <h2>Posts</h2>
         <div class="form-group">
-          <label for="postUserId">User ID</label>
-          <input type="number" id="postUserId" placeholder="Enter user ID" />
+          <label for="postUserId">Usuario ID</label>
+          <input type="number" id="postUserId" placeholder="Ingresar el ID del usuario" />
         </div>
         <div class="form-group">
-          <label for="postTitle">Title</label>
-          <input type="text" id="postTitle" placeholder="Enter title" />
+          <label for="postTitle">Titulo</label>
+          <input type="text" id="postTitle" placeholder="Ingresar el titulo" />
         </div>
         <div class="form-group">
-          <label for="postContent">Content</label>
-          <input type="text" id="postContent" placeholder="Enter content" />
+          <label for="postContent">Contenido</label>
+          <input type="text" id="postContent" placeholder="Ingresar el contenido" />
         </div>
-        <button onclick="createPost()">Create Post</button>
-        <button onclick="getPosts()">Get Posts</button>
+        <button onclick="createPost()">Crear post</button>
+        <button onclick="getPosts()">Listar posts</button>
 
         <table>
           <thead>
             <tr>
               <th>ID</th>
-              <th>User ID</th>
-              <th>Title</th>
-              <th>Content</th>
-              <th>Actions</th>
+              <th>ID usuario</th>
+              <th>Titulo</th>
+              <th>Contenido</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody id="postResult">
-            <!-- Post rows will be added here dynamically -->
           </tbody>
         </table>
     </div>
 
     <div id="commentSection" class="section hidden">
-      <h2>Comments</h2>
+      <h2>Comentarios</h2>
       <div class="form-group">
-        <label for="commentPostId">Post ID</label>
-        <input type="number" id="commentPostId" placeholder="Enter post ID" />
+        <label for="commentPostId">ID del post</label>
+        <input type="number" id="commentPostId" placeholder="Ingresar el id del post" />
       </div>
       <div class="form-group">
-        <label for="commentUserId">User ID</label>
-        <input type="number" id="commentUserId" placeholder="Enter user ID" />
+        <label for="commentUserId">ID del usuario</label>
+        <input type="number" id="commentUserId" placeholder="Ingresar el ID del usuario" />
       </div>
       <div class="form-group">
-        <label for="commentContent">Content</label>
-        <input type="text" id="commentContent" placeholder="Enter content" />
+        <label for="commentContent">Contenido</label>
+        <input type="text" id="commentContent" placeholder="Ingresar el contenido" />
       </div>
-      <button onclick="createComment()">Create Comment</button>
-      <button onclick="getComments()">Get Comments</button>
+      <button onclick="createComment()">Crear comentario</button>
+      <button onclick="getComments()">Listar comentarios</button>
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Post ID</th>
-            <th>User ID</th>
-            <th>Content</th>
-            <th>Actions</th>
+            <th>ID del post</th>
+            <th>ID del usuario</th>
+            <th>Contenido</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody id="commentResult">
-          <!-- Comment rows will be added here dynamically -->
         </tbody>
       </table>
     </div>
@@ -231,22 +229,21 @@
     <div id="categorySection" class="section hidden">
       <h2>Categorias</h2>
         <div class="form-group">
-          <label for="categoryName">Content</label>
+          <label for="categoryName">Contenido</label>
           <input type="text" id="categoryName" placeholder="Categoria" />
         </div>
 
-      <button onclick="createCategory()">Create Categoria</button>
-      <button onclick="getCategories()">Get Categories</button>
+      <button onclick="createCategory()">Crear categoria</button>
+      <button onclick="getCategories()">Listar categories</button>
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Actions</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody id="categoryResult">
-          <!-- Category rows will be added here dynamically -->
         </tbody>
       </table>
     </div>
@@ -286,12 +283,12 @@
         })
         .then((data) => {
           console.log('Success:', data);
-          alert('User created successfully');
+          alert('Usuario creado exitosamente');
           getUsers();
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Error creating user');
+          alert('Error creando el usuario');
         });
     }
 
@@ -303,7 +300,7 @@
         })
         .catch((error) => {
           console.error('Error:', error)
-          alert('Error fetching users')
+          alert('Error listando los usuarios')
         })
     }
 
@@ -312,7 +309,7 @@
       userResult.innerHTML = ''; 
 
       if (users.length === 0) {
-        userResult.innerHTML = '<tr><td colspan="5">No users found.</td></tr>';
+        userResult.innerHTML = '<tr><td colspan="5">No se encontraron usuarios.</td></tr>';
         return;
       }
 
@@ -324,8 +321,8 @@
           <td>${user.name}</td>
           <td>${user.email}</td>
           <td>${user.age}</td>
-          <td><button onclick="deleteUser(${user.id})">Delete</button>
-          <button onclick="updateUser(${user.id})">Edit</button></td>
+          <td><button onclick="deleteUser(${user.id})">Eliminar</button>
+          <button onclick="updateUser(${user.id})">Editar</button></td>
         `;
         userResult.appendChild(row);
       });
@@ -339,12 +336,12 @@
           if (!response.ok) {
             return response.text().then(text => { throw new Error(text) });
           }
-          alert('User deleted successfully');
+          alert('Usuario eliminado exitosamente.');
           getUsers(); // Refresh the user list
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Error deleting user');
+          alert('Error eliminando usuario');
         });
     }
 
@@ -356,7 +353,7 @@
       // agarro los datos del usuario
       const user = Array.from(document.querySelectorAll('#userResult tr'))
       .find(row => row.querySelector('td:first-child').innerText == userId);
-      if (!user) return alert('User not found');
+      if (!user) return alert('Usuario no encontrado');
 
       const userName = user.children[1].innerText;
       const userEmail = user.children[2].innerText;
@@ -395,13 +392,13 @@
         })
         .then((data) => {
           console.log('Success:', data);
-          alert('User updated successfully');
-          getUsers(); // Refresh the user list
+          alert('Usuario actualizado exitosamente');
+          getUsers();
           closeUpdateModal();
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Error updating user');
+          alert('Error actualizando usuario');
         });
     }
 
@@ -431,12 +428,12 @@
         })
         .then((data) => {
           console.log('Success:', data);
-          alert('Post created successfully');
-          getPosts(); // Refresh the post list
+          alert('Post creado exitosamente');
+          getPosts();
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Error creating post');
+          alert('Error creando post');
         });
     }
 
@@ -444,12 +441,11 @@
       fetch(`${config.apiUrl}/posts`)
         .then((response) => response.json())
         .then((data) => {
-          // console.log('Posts:', data);
           displayPostsAsTable(data);
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Error fetching posts');
+          alert('Error listando posts');
         });
     }
 
@@ -458,7 +454,7 @@
       postResult.innerHTML = '';
 
       if (posts.length === 0) {
-        postResult.innerHTML = '<tr><td colspan="5">No posts found.</td></tr>';
+        postResult.innerHTML = '<tr><td colspan="5">No se encontraron posts.</td></tr>';
         return;
       }
 
@@ -470,7 +466,7 @@
           <td>${post.user_id}</td>
           <td>${post.title}</td>
           <td>${post.content}</td>
-          <td><button onclick="deletePost(${post.id})">Delete</button></td>
+          <td><button onclick="deletePost(${post.id})">Eliminar</button></td>
         `;
         postResult.appendChild(row);
       });
@@ -484,18 +480,18 @@
           if (!response.ok) {
             return response.text().then(text => { throw new Error(text) });
           }
-          alert('Post deleted successfully');
+          alert('Post eliminado exitosamente');
           getPosts(); // Refresh the post list
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Error deleting post');
+          alert('Error eliminando post');
         });
     }
 
 
     /* 
-    * COMMENTS REVISAR
+    * COMENTARIOS
     *
     *
     */
@@ -520,12 +516,12 @@
         })
         .then((data) => {
           console.log('Success:', data);
-          alert('Comment created successfully');
-          getComments(); // Refresh the comment list
+          alert('Comentario creado exitosamente');
+          getComments();
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Error creating comment');
+          alert('Error creando comentario');
         });
     }
 
@@ -534,21 +530,20 @@
       fetch(`${config.apiUrl}/comments`)
         .then((response) => response.json())
         .then((data) => {
-          // console.log('Comments:', data);
           displayCommentsAsTable(data);
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Error fetching comments');
+          alert('Error listando comentarios');
         });
     }
 
     function displayCommentsAsTable(comments) {
       const commentResult = document.getElementById('commentResult');
-      commentResult.innerHTML = ''; // Clear previous results
+      commentResult.innerHTML = '';
 
       if (comments.length === 0) {
-        commentResult.innerHTML = '<tr><td colspan="5">No comments found.</td></tr>';
+        commentResult.innerHTML = '<tr><td colspan="5">No se encontraron comentarios.</td></tr>';
         return;
       }
 
@@ -560,7 +555,7 @@
           <td>${comment.post_id}</td>
           <td>${comment.user_id}</td>
           <td>${comment.content}</td>
-          <td><button onclick="deleteComment(${comment.id})">Delete</button></td>
+          <td><button onclick="deleteComment(${comment.id})">Eliminar</button></td>
         `;
         commentResult.appendChild(row);
       });
@@ -574,17 +569,17 @@
           if (!response.ok) {
             return response.text().then(text => { throw new Error(text) });
           }
-          alert('Comment deleted successfully');
-          getComments(); // Refresh the comment list
+          alert('Comment eliminado exitosamente');
+          getComments();
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Error deleting comment');
+          alert('Error eliminando comentario');
         });
     }
 
     /* 
-    * CATEGORIAS REVISAR
+    * CATEGORIAS
     *
     *
     */
@@ -607,12 +602,12 @@
       })
       .then((data) => {
         console.log('Success:', data);
-        alert('Category created successfully');
+        alert('Category creada exitosamente');
         getCategories(); // Refresh the category list
       })
       .catch((error) => {
         console.error('Error:', error);
-        alert('Error creating category');
+        alert('Error creando categoria');
       });
     }
 
@@ -624,16 +619,16 @@
       })
       .catch((error) => {
         console.error('Error:', error);
-        alert('Error fetching categories');
+        alert('Error listando categorias');
       });
     }
 
     function displayCategoriesAsTable(categories) {
       const categoryResult = document.getElementById('categoryResult');
-      categoryResult.innerHTML = ''; // Clear previous results
+      categoryResult.innerHTML = '';
 
       if (categories.length === 0) {
-        categoryResult.innerHTML = '<tr><td colspan="3">No categories found.</td></tr>';
+        categoryResult.innerHTML = '<tr><td colspan="3">No se encontraron categorias.</td></tr>';
         return;
       }
 
@@ -643,7 +638,7 @@
         row.innerHTML = `
           <td>${category.id}</td>
           <td>${category.name}</td>
-          <td><button onclick="deleteCategory(${category.id})">Delete</button></td>
+          <td><button onclick="deleteCategory(${category.id})">Eliminar</button></td>
         `;
         categoryResult.appendChild(row);
       });
@@ -657,12 +652,12 @@
           if (!response.ok) {
             return response.text().then(text => { throw new Error(text) });
           }
-          alert('Category deleted successfully');
-          getCategories(); // Refresh the category list
+          alert('Categoria eliminada exitosamente');
+          getCategories();
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Error deleting category');
+          alert('Error eliminando categoria');
         });
     }
 
