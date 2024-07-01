@@ -1,6 +1,5 @@
 # TP2-grupo17
 
-- Heroku en el usuario de mcmustillo@gmail.com, proyecto "tp-grupo17"
 - JawsDB MySQL Addon
 
 ## Descripción del Proyecto
@@ -12,29 +11,25 @@ Este proyecto consiste en una aplicación CRUD (Crear, Leer, Actualizar, Borrar)
 ### Base de Datos
 
 - **MySQL**: La base de datos utilizada es MySQL.
-- **Mínimo de 4 tablas**: La base de datos contiene al menos 4 tablas (`users`, `posts`, `comments`, `categories`).
+- **Mínimo de 4 tablas**: La base de datos contiene las tablas `users`, `posts`, `comments`, `categories`.
 - **4 tipos de datos diferentes**: Las tablas contienen diversos tipos de datos como `INT`, `VARCHAR`, `TEXT`, `TIMESTAMP`.
 - **Relación "uno a muchos"**: Existen relaciones "uno a muchos" entre las tablas, por ejemplo, un `user` puede tener múltiples `posts` y `comments`.
 
 ### Servidor y Operaciones CRUD
 
-- **POST (Alta)**: Se puede realizar la creación de nuevos registros en las tablas (`users`, `posts`, `comments`, `categories`) mediante solicitudes POST.
-- **PUT (Modificaciones)**: Se pueden modificar los registros existentes utilizando solicitudes PUT.
-- **GET (Acceso a registros)**: Se puede acceder a los registros de las tablas mediante solicitudes GET.
-- **DELETE (Borrado físico)**: Se pueden eliminar registros de las tablas utilizando solicitudes DELETE.
+- **POST (Alta)**: Se puede realizar la creación de nuevos registros en las tablas `users`, `posts`, `comments`, `categories` mediante solicitudes POST.
+- **PUT (Modificaciones)**: Se pueden modificar los registros de `users` existentes utilizando solicitudes PUT.
+- **GET (Acceso a registros)**: Se puede acceder a los registros de todas las tablas mediante solicitudes GET.
+- **DELETE (Borrado físico)**: Se pueden eliminar registros de todas las tablas utilizando solicitudes DELETE.
 
 ### Despliegue y Repositorio
 
 - **Servidor online**: La aplicación está desplegada en Heroku y accesible online.
 - **Repositorio Git**: El código del proyecto está disponible en un repositorio de GitHub.
 
-### Autenticación
-
-- **Token de autenticación**: Se ha implementado autenticación utilizando JWT (JSON Web Tokens) para asegurar las rutas protegidas.
-
 ### Integración Frontend y Backend
 
-- **Frontend**: El frontend permite la interacción con el backend mediante formularios y botones, proporcionando una interfaz de usuario para realizar operaciones CRUD.
+- **Frontend**: El frontend permite la interacción con el backend mediante formularios y botones, proporcionando una interfaz de usuario para realizar operaciones ABM.
 - **Backend**: El backend maneja las solicitudes y realiza operaciones en la base de datos, devolviendo respuestas al frontend.
 
 ## Tecnologías Utilizadas
@@ -42,7 +37,7 @@ Este proyecto consiste en una aplicación CRUD (Crear, Leer, Actualizar, Borrar)
 - **Backend**: Node.js, Express
 - **Base de Datos**: MySQL
 - **Frontend**: HTML, CSS, JavaScript
-- **Despliegue**: Heroku
+- **Despliegue**: Heroku con JawsDB MySQL Addon
 - **Control de Versiones**: Git, GitHub
 
 ## Instrucciones para Ejecutar el Proyecto Localmente
@@ -74,7 +69,7 @@ Este proyecto consiste en una aplicación CRUD (Crear, Leer, Actualizar, Borrar)
 
 ## Despliegue
 
-La aplicación está desplegada en Heroku y se puede acceder a través del siguiente enlace:  
+La aplicación está desplegada en Heroku con el usuario [mcmustillo@gmail.com](mailto:mcmustillo@gmail.com) y se puede acceder a través del siguiente enlace:  
 [Enlace a la Aplicación en Heroku](https://tp-grupo17-9a48f7f37a7c.herokuapp.com/)
 
 ## Repositorio
