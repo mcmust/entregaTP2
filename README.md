@@ -1,7 +1,5 @@
 # TP2-grupo17
 
-- JawsDB MySQL Addon
-
 ## Descripción del Proyecto
 
 Este proyecto consiste en una aplicación CRUD (Crear, Leer, Actualizar, Borrar) desarrollada utilizando Node.js y Express para el backend, MySQL como base de datos y un frontend sencillo en HTML, CSS y JavaScript. La aplicación está desplegada en un servidor online y el código está disponible en un repositorio de GitHub.
@@ -15,7 +13,7 @@ Este proyecto consiste en una aplicación CRUD (Crear, Leer, Actualizar, Borrar)
 - **4 tipos de datos diferentes**: Las tablas contienen diversos tipos de datos como `INT`, `VARCHAR`, `TEXT`, `TIMESTAMP`.
 - **Relación "uno a muchos"**: Existen relaciones "uno a muchos" entre las tablas, por ejemplo, un `user` puede tener múltiples `posts` y `comments`.
 
-### Servidor y Operaciones CRUD
+### Servidor y Operaciones ABM
 
 - **POST (Alta)**: Se puede realizar la creación de nuevos registros en las tablas `users`, `posts`, `comments`, `categories` mediante solicitudes POST.
 - **PUT (Modificaciones)**: Se pueden modificar los registros de `users` existentes utilizando solicitudes PUT.
